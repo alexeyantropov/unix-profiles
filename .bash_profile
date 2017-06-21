@@ -68,4 +68,7 @@ resolv-dhcp () {
 git-commit-and-push-all () {
 	git add -A :/ && git commit -a && git push
 }
+git-pull-push () {
+	git pull && git push
+}
 
