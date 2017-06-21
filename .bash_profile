@@ -64,3 +64,8 @@ resolv-dhcp () {
 	sudo networksetup -setdhcp Wi-Fi
 }
 
+# git
+git-commit-and-push-all () {
+	git add -A :/ && git commit -a && git push
+}
+
