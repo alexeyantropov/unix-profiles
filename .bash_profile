@@ -1,6 +1,6 @@
 # use symlink .bashrc -> .bash_profile for any sessions-type
 # main env
-export PATH
+export PATH=$PATH:$HOME/bin
 export SSH_AUTH_SOCK=$HOME/.ssh/ssh_auth_sock
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
