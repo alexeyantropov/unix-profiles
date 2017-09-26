@@ -53,9 +53,11 @@ fi
 
 # print tmux or screen sessions after login
 if [ $TERM = "xterm" ]; then 
+	tmux_top_sessions=10
+	echo -e "\n*** tmux and screen top $tmux_top_sessions sessions\n"
+	tmux list-sessions | head -${tmux_top_sessions}
 	echo
-	screen -ls
-	tmux list-sessions
+	screen -ls | head -${tmux_top_sessions}
 fi
 
 # get resolvers from dhcp-server for mac os
