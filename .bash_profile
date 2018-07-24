@@ -26,6 +26,7 @@ alias tmux="tmux -2 -u"
 alias ssx="tmux attach -d -t"
 alias ssn="tmux new -s"
 alias sss="tmux list-sessions"
+alias bashprofileup="source ~/.bash_profile"
 
 # custom functions
 host-idn () {
