@@ -75,3 +75,18 @@ git-pull-push () {
 	git pull && git push
 }
 
+# ssh logins
+host_short_name () {
+	echo $1 | awk -F '.' '{print $1}'
+}
+set_window_title () {
+	echo -ne "\033k`host_short_name $1`\033\\"
+}
+sshs () {
+	set_window_title $1
+	ssh -o 'StrictHostKeyChecking no' $1
+}
+ssha () {
+	set_window_title $1
+	ssh -A -o 'StrictHostKeyChecking no' $1
+}
