@@ -18,8 +18,6 @@ fi
 unalias -a
 ## common
 alias bim="vim"
-alias ssha="ssh -A"
-## screen 
 alias screen="screen -h 10000"
 ## tmux
 alias tmux="tmux -2 -u"
@@ -90,3 +88,4 @@ ssha () {
 	set_window_title $1
 	ssh -A -o 'StrictHostKeyChecking no' $1
 }
+
