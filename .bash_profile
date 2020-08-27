@@ -47,8 +47,19 @@ if [ -f ~/.bash_local* ]; then
 fi
 
 # set window title
+set_windows_title () {
+	if git rev-parse --git-dir &> /dev/null; then
+		repo_name=$(basename $(git rev-parse --show-toplevel))
+		branch=$(git rev-parse --abbrev-ref HEAD)
+		changes=$(git status -s |wc -l)
+		prompt="${repo_name}:${branch}:${changes}"
+	else
+		prompt=`hostname -s`
+	fi
+	echo -ne "\033k${prompt}\033\\"
+}
 if [ $TERM = "screen" ]; then
-	export PROMPT_COMMAND='echo -ne "\033k`hostname -s`\033\\"'
+	export PROMPT_COMMAND=set_windows_title
 fi
 
 # print tmux or screen sessions after login
