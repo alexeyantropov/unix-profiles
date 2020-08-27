@@ -89,4 +89,3 @@ ssha () {
 	set_window_title $1
 	ssh -A -o 'StrictHostKeyChecking no' $1
 }
-
