@@ -84,6 +84,9 @@ git-commit-and-push-all () {
 git-pull-push () {
 	git pull && git push
 }
+git-tag () {
+	git tag -a "$1" -m "$1 release" && git push origin $1
+}
 
 # ssh logins
 host_short_name () {
