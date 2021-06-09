@@ -92,9 +92,14 @@ git-tag () {
 set_window_title () {
 	if git rev-parse --git-dir &> /dev/null; then
 		repo_name=$(basename $(git rev-parse --show-toplevel))
-		branch=$(git rev-parse --abbrev-ref HEAD)
-		changes=$(git status -s |wc -l)
-		prompt="${repo_name}:${branch}:${changes}"
+		name_chars=`echo $repo_name|wc -m`
+		if test $name_chars -gt 10; then
+			suff="..."
+		else
+			suff=""
+		fi
+		prompt_t=`echo ${repo_name} | cut -c 1-10`
+		prompt=${prompt_t}${suff}
 	else
 		prompt=`hostname -s`
 	fi
