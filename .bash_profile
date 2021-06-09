@@ -9,10 +9,24 @@ export EDITOR="vim"
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # bash promt
+git_ps1 () {
+	git rev-parse --git-dir &> /dev/null
+	retval=$?
+	if test $retval -eq 0; then
+		repo_name=$(basename $(git rev-parse --show-toplevel))
+		branch=$(git rev-parse --abbrev-ref HEAD)
+		changes=$(git status -s | wc -l | xargs)
+		output=" (git: ${repo_name}:${branch}:${changes})"
+	else
+		output=""
+	fi
+	echo "$output"
+}
+
 if [ `whoami` = 'root' ]; then
-	export PS1='\[\033[1;31m\]\u@\h \w \$\[\033[00m\] '
+	export PS1='\[\033[1;31m\]\u@\h \W$(git_ps1) \$\[\033[00m\] '
 else
-	export PS1='\[\033[1;32m\]\u@\h \w \$\[\033[00m\] '
+	export PS1='\[\033[1;32m\]\u@\h \W$(git_ps1) \$\[\033[00m\] '
 fi
 
 # aliases
@@ -47,20 +61,6 @@ if [ -f ~/.bash_local* ]; then
 fi
 
 # set window title
-set_windows_title () {
-	if git rev-parse --git-dir &> /dev/null; then
-		repo_name=$(basename $(git rev-parse --show-toplevel))
-		branch=$(git rev-parse --abbrev-ref HEAD)
-		changes=$(git status -s |wc -l)
-		prompt="${repo_name}:${branch}:${changes}"
-	else
-		prompt=`hostname -s`
-	fi
-	echo -ne "\033k${prompt}\033\\"
-}
-if [ $TERM = "screen" ]; then
-	export PROMPT_COMMAND=set_windows_title
-fi
 
 # print tmux or screen sessions after login
 if [ $TERM = "xterm" ]; then 
@@ -88,13 +88,23 @@ git-tag () {
 	git tag -a "$1" -m "$1 release" && git push origin $1
 }
 
-# ssh logins
-host_short_name () {
-	echo $1 | awk -F '.' '{print $1}'
-}
+# ssh logins and fit in tmux
 set_window_title () {
-	echo -ne "\033k`host_short_name $1`\033\\"
+	if git rev-parse --git-dir &> /dev/null; then
+		repo_name=$(basename $(git rev-parse --show-toplevel))
+		branch=$(git rev-parse --abbrev-ref HEAD)
+		changes=$(git status -s |wc -l)
+		prompt="${repo_name}:${branch}:${changes}"
+	else
+		prompt=`hostname -s`
+	fi
+	echo -ne "\033k${prompt}\033\\"
 }
+
+if [ $TERM = "screen" ]; then
+	export PROMPT_COMMAND=set_windows_title
+fi
+
 sshs () {
 	set_window_title $1
 	ssh -o 'StrictHostKeyChecking no' $1
