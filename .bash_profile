@@ -16,7 +16,7 @@ git_ps1 () {
 		repo_name=$(basename $(git rev-parse --show-toplevel))
 		branch=$(git rev-parse --abbrev-ref HEAD)
 		changes=$(git status -s | wc -l | xargs)
-		output=" (git: ${repo_name}:${branch}:${changes})"
+		output=" (${repo_name}:${branch}:${changes})"
 	else
 		output=""
 	fi
@@ -24,9 +24,9 @@ git_ps1 () {
 }
 
 if [ `whoami` = 'root' ]; then
-	export PS1='\[\033[1;31m\]\u@\h \W$(git_ps1) \$\[\033[00m\] '
+	export PS1='\[\033[1;31m\]\u@\h$(git_ps1) \W \$\[\033[00m\] '
 else
-	export PS1='\[\033[1;32m\]\u@\h \W$(git_ps1) \$\[\033[00m\] '
+	export PS1='\[\033[1;32m\]\u@\h$(git_ps1) \W \$\[\033[00m\] '
 fi
 
 # aliases
@@ -102,7 +102,7 @@ set_window_title () {
 }
 
 if [ $TERM = "screen" ]; then
-	export PROMPT_COMMAND=set_windows_title
+	export PROMPT_COMMAND=set_window_title
 fi
 
 sshs () {
