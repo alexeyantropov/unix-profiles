@@ -93,12 +93,12 @@ set_window_title () {
 	if git rev-parse --git-dir &> /dev/null; then
 		repo_name=$(basename $(git rev-parse --show-toplevel))
 		name_chars=`echo $repo_name|wc -m`
-		if test $name_chars -gt 10; then
+		if test $name_chars -gt 15; then
 			suff="..."
 		else
 			suff=""
 		fi
-		prompt_t=`echo ${repo_name} | cut -c 1-10`
+		prompt_t=`echo ${repo_name} | cut -c 1-15`
 		prompt=${prompt_t}${suff}
 	else
 		prompt=`hostname -s`
