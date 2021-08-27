@@ -90,7 +90,9 @@ git-tag () {
 
 # ssh logins and fit in tmux
 set_window_title () {
-	if git rev-parse --git-dir &> /dev/null; then
+	git rev-parse --git-dir &> /dev/null
+	retval=$?
+	if test $retval -eq 0; then
 		repo_name=$(basename $(git rev-parse --show-toplevel))
 		name_chars=`echo $repo_name|wc -m`
 		if test $name_chars -gt 15; then
