@@ -4,6 +4,7 @@ repo_path="${HOME}/git/unix-profiles"
 
 for file in .bash_profile .bashrc .gitconfig .tmux.conf .vimrc; do
 	ln -sf ${repo_path}/$file ~/.
+	chmod 600 $file
 done
 
 mkdir ~/.ssh 2> /dev/null
