@@ -105,6 +105,9 @@ set_window_title () {
 	else
 		prompt=`hostname -s`
 	fi
+	if test ! -z $1; then
+		prompt=`echo $1 | awk -F '.' '{print $1}'`
+	fi
 	echo -ne "\033k${prompt}\033\\"
 }
 
@@ -114,9 +117,11 @@ fi
 
 sshs () {
 	set_window_title $1
-	ssh -o 'StrictHostKeyChecking no' $1
+	ssh $1
+	set_window_title
 }
 ssha () {
 	set_window_title $1
-	ssh -A -o 'StrictHostKeyChecking no' $1
+	ssh -A $1
+	set_window_title
 }
