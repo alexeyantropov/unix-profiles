@@ -23,10 +23,14 @@ git_ps1 () {
 	echo "$output"
 }
 
+date_ps1 () {
+	echo "$(date +%c)"
+}
+
 if [ `whoami` = 'root' ]; then
-	export PS1='\[\033[1;31m\]\u@\h$(git_ps1) \W \$\[\033[00m\] '
+	export PS1='\[\033[1;31m\]\u@\h$(git_ps1) \W\n$(date_ps1) \$\[\033[00m\] '
 else
-	export PS1='\[\033[1;32m\]\u@\h$(git_ps1) \W \$\[\033[00m\] '
+	export PS1='\[\033[1;32m\]\u@\h$(git_ps1) \W\n$(date_ps1) \$\[\033[00m\] '
 fi
 
 # aliases
