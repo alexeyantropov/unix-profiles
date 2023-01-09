@@ -8,7 +8,16 @@ export GREP_OPTIONS="--color=auto"
 export EDITOR="vim"
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
-# bash promt
+# git
+git-commit-and-push-all () {
+	git add -A :/ && git commit -a && git push
+}
+git-pull-push () {
+	git pull && git push
+}
+git-tag () {
+	git tag -a "$1" -m "$1 release" && git push origin $1
+}
 git_ps1 () {
 	git rev-parse --git-dir &> /dev/null
 	retval=$?
@@ -22,11 +31,11 @@ git_ps1 () {
 	fi
 	echo "$output"
 }
-
 date_ps1 () {
 	echo "$(date +%c)"
 }
 
+# bash promt
 export PS1='\[\033[0;32m\]\u@\h$(git_ps1) \W\n$(date_ps1) \$\[\033[00m\] '
 
 # aliases
@@ -81,17 +90,6 @@ fi
 resolv-dhcp () {
 	sudo networksetup -setdnsservers Wi-Fi empty
 	sudo networksetup -setdhcp Wi-Fi
-}
-
-# git
-git-commit-and-push-all () {
-	git add -A :/ && git commit -a && git push
-}
-git-pull-push () {
-	git pull && git push
-}
-git-tag () {
-	git tag -a "$1" -m "$1 release" && git push origin $1
 }
 
 # ssh logins and fit in tmux
