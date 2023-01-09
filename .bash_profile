@@ -41,12 +41,6 @@ alias ssn="tmux new -s"
 alias sss="tmux list-sessions"
 alias bashprofileup="source ~/.bash_profile"
 
-tmux_send_keys_all_panes () {
-	for _pane in $(tmux list-panes -F '#P'); do
-		tmux send-keys -t ${_pane} "$@" C-m
-	done
-}
-
 # custom functions
 host-idn () {
 	host `idn --quiet $1`
