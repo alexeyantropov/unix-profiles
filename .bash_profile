@@ -40,6 +40,12 @@ alias ssx="tmux attach -d -t"
 alias ssn="tmux new -s"
 alias sss="tmux list-sessions"
 alias bashprofileup="source ~/.bash_profile"
+tmux_send_command_to_every_pane() {
+	for pane in $(tmux list-panes -a -F '#{session_name}:#{window_index}.#{pane_index}'); do
+		tmux send-keys -t $pane "$@" C-m
+	done
+	unset pane
+}
 
 # custom functions
 host-idn () {
