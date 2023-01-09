@@ -7,6 +7,7 @@ export LC_ALL="en_US.UTF-8"
 export GREP_OPTIONS="--color=auto"
 export EDITOR="vim"
 export BASH_SILENCE_DEPRECATION_WARNING=1
+unix_profiles_dir="${HOME}/git/unix-profiles"
 
 # git
 git-commit-and-push-all () {
@@ -34,6 +35,10 @@ git_ps1 () {
 date_ps1 () {
 	echo "$(date +%c)"
 }
+git_completion_file="${unix_profiles_dir}/git-completion.bash"
+if test -f "$git_completion_file"; then
+	source "$git_completion_file"
+fi
 
 # bash promt
 export PS1='\[\033[0;32m\]\u@\h$(git_ps1) \W\n$(date_ps1) \$\[\033[00m\] '
