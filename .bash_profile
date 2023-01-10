@@ -12,13 +12,12 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 git_ps1 () {
 	git rev-parse --git-dir &> /dev/null
 	retval=$?
+	output=""
 	if test $retval -eq 0; then
 		repo_name=$(basename $(git rev-parse --show-toplevel))
 		branch=$(git rev-parse --abbrev-ref HEAD)
 		changes=$(git status -s | wc -l | xargs)
 		output=" (${repo_name}:${branch}:${changes})"
-	else
-		output=""
 	fi
 	echo "$output"
 }
@@ -27,7 +26,7 @@ date_ps1 () {
 	echo "$(date +%c)"
 }
 
-export PS1='\[\033[0;32m\]\u@\h$(git_ps1) \W\n$(date_ps1) \$\[\033[00m\] '
+export PS1='\[\033[0;32m\]\u\[\033[1;37m\]@\[\033[0;32m\]\h$(git_ps1) \W\n$(date_ps1) \$\[\033[00m\] '
 
 # aliases
 unalias -a
