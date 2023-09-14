@@ -10,8 +10,12 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 unix_profiles_dir="${HOME}/git/unix-profiles"
 
 # git
-git-commit-and-push-all () {
+unset -f git-commit-and-push-all
+git-commit-all-and-push () {
 	git add -A :/ && git commit -a && git push
+}
+git-commit-all () {
+	git add -A :/ && git commit -a
 }
 git-pull-push () {
 	git pull && git push
