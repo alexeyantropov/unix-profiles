@@ -10,7 +10,7 @@ done
 mkdir ~/.ssh 2> /dev/null
 chmod 700 ~/.ssh
 for file in rc config; do
-	ln -sf ln -sf ${repo_path}/.ssh/$file ~/.ssh/.
+	ln -sf ${repo_path}/.ssh/$file ~/.ssh/.
 done
 chmod 750  ~/.ssh/rc
 chmod 600  ~/.ssh/config
