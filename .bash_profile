@@ -2,8 +2,8 @@
 # main env
 export PATH=$PATH:$HOME/bin
 export SSH_AUTH_SOCK=$HOME/.ssh/ssh_auth_sock
-export LANG="C"
-export LC_ALL="C"
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 export GREP_OPTIONS="--color=auto"
 export EDITOR="vim"
 export BASH_SILENCE_DEPRECATION_WARNING=1
