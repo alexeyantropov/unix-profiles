@@ -89,17 +89,6 @@ if [ -f ~/.bash_local* ]; then
 	. ~/.bash_local*
 fi
 
-# set window title
-
-# print tmux or screen sessions after login
-if [ $TERM = "xterm" ]; then 
-	tmux_top_sessions=10
-	echo -e "\n*** tmux and screen top $tmux_top_sessions sessions\n"
-	tmux list-sessions | head -${tmux_top_sessions}
-	echo
-	screen -ls | head -${tmux_top_sessions}
-fi
-
 # get resolvers from dhcp-server for mac os
 resolv-dhcp () {
 	sudo networksetup -setdnsservers Wi-Fi empty
