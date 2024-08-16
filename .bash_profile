@@ -7,6 +7,9 @@ export LC_ALL="en_US.UTF-8"
 export GREP_OPTIONS="--color=auto"
 export EDITOR="vim"
 export BASH_SILENCE_DEPRECATION_WARNING=1
+if [ $TERM = "tmux-256color" ]; then
+	export TERM="tmux"
+fi
 unix_profiles_dir="${HOME}/git/unix-profiles"
 
 # git
@@ -115,7 +118,7 @@ set_window_title () {
 	echo -ne "\033k${prompt}\033\\"
 }
 
-if [ $TERM = "screen" -o $TERM = "tmux-256color" ]; then
+if [ $TERM = "screen" -o $TERM = "tmux-256color" -o $TERM = "tmux" ]; then
 	export PROMPT_COMMAND=set_window_title
 fi
 
