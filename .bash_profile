@@ -115,7 +115,7 @@ set_window_title () {
 	echo -ne "\033k${prompt}\033\\"
 }
 
-if [ $TERM = "screen" -o $TERM = "tmux-256color" ]; then
+if [ $TERM = "screen" -o $TERM = "tmux-256color" -o $TERM = "xterm-256color" ]; then
 	export PROMPT_COMMAND=set_window_title
 fi
 
