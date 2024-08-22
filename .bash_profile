@@ -23,6 +23,12 @@ git-pull-push () {
 git-tag () {
 	git tag -a "$1" -m "$1 release" && git push origin $1
 }
+git_completion_file="${unix_profiles_dir}/git-completion.bash"
+if test -f "$git_completion_file"; then
+	source "$git_completion_file"
+fi
+
+# bash promt
 git_ps1 () {
 	git rev-parse --git-dir &> /dev/null
 	retval=$?
@@ -36,13 +42,8 @@ git_ps1 () {
 	echo "$output"
 }
 date_ps1 () {
-	echo "$(date +%c)"
+	echo "$(date +%T)"
 }
-git_completion_file="${unix_profiles_dir}/git-completion.bash"
-if test -f "$git_completion_file"; then
-	source "$git_completion_file"
-fi
-
 # bash promt
 export PS1='\[\033[0;32m\]\u\[\033[1;37m\]@\[\033[0;32m\]\h$(git_ps1) \W\n$(date_ps1) \$\[\033[00m\] '
 
