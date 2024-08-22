@@ -1,4 +1,5 @@
 syntax on
+set background=dark
 "colorscheme torte
 "colorscheme gruvbox
 colorscheme hybrid_reverse
