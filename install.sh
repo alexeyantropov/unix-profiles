@@ -2,9 +2,11 @@
 
 repo_path="${HOME}/git/unix-profiles"
 
-for file in .bash_profile .bashrc .gitconfig .tmux.conf .vimrc; do
-	ln -sf ${repo_path}/$file ~/.
-	chmod 600 $file
+for file in .bash_profile .bashrc .gitconfig .tmux.conf .vimrc .vim; do
+	source_path="${repo_path}/$file"
+	ln -sf $source_path ~/.
+	test -f $source_path && chmod 640 $file
+	test -d $source_path && chmod -R 750 $file
 done
 
 mkdir ~/.ssh 2> /dev/null
