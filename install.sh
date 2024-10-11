@@ -34,4 +34,6 @@ if (ssh -V 2>&1 | egrep 'OpenSSH_7.4'); then
 	# it's sad
 	ln -sf ${repo_path}/.ssh/config_7.5 ~/.ssh/config
 	ln -sf ${repo_path}/.ssh/rc_7.5 ~/.ssh/rc
+	chmod 600 ~/.ssh/config
+	chmod 700 ~/.ssh/rc
 fi
