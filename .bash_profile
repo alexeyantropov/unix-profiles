@@ -55,6 +55,7 @@ alias screen="screen -h 10000"
 alias grep="grep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
+alias sshrc="${HOME}/.ssh/rc"
 ## tmux
 alias tmux="tmux -2 -u"
 alias ssx="tmux attach -d -t"
