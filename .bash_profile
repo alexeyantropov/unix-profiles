@@ -82,6 +82,11 @@ mkcd () {
 srv () { # get hostname of server by ptr-record
 	for i in `host -ta $1 | awk '{print $4}'`; do host $i| awk '{print $5}'; done;
 }
+ssh-auth-up () {
+	last_auth_socket=$(ls -t /tmp/ssh-*/agent.* | head -1)
+	auth_socket_link="$SSH_AUTH_SOCK"
+	ln -svf "$last_auth_socket" $auth_socket_link
+}
 
 # include local config (for home, work, etc)
 if [ -f ~/.bash_local* ]; then
