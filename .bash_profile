@@ -126,6 +126,12 @@ if [ $TERM = "screen" -o $TERM = "tmux-256color" -o $TERM = "xterm-256color" ]; 
 	export PROMPT_COMMAND=set_window_title
 fi
 
+# homebrew
+BREW=/opt/homebrew/bin/brew
+if test $(uname) = "Darwin" -a -f $BREW && $(echo $PATH | grep -v -q "brew") && $(echo $INFOPATH | grep -v -q "brew"); then
+	eval "$($BREW shellenv)"
+fi
+
 sshs () {
 	set_window_title $1
 	ssh $1
