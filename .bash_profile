@@ -133,12 +133,12 @@ if test $(uname) = "Darwin" -a -f $BREW && $(echo $PATH | grep -v -q "brew") && 
 fi
 
 sshs () {
-	set_window_title $1
-	ssh $1
+	set_window_title $@
+	ssh $@
 	set_window_title
 }
 ssha () {
-	set_window_title $1
-	ssh -A $1
+	set_window_title $@
+	ssh -A $@
 	set_window_title
 }
