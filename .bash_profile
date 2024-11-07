@@ -127,7 +127,7 @@ if [ $TERM = "screen" -o $TERM = "tmux-256color" -o $TERM = "xterm-256color" ]; 
 fi
 
 # homebrew
-BREW=/opt/homebrew/bin/brew
+BREW=${HOME}/homebrew/bin/brew
 if test $(uname) = "Darwin" -a -f $BREW && $(echo $PATH | grep -v -q "brew") && $(echo $INFOPATH | grep -v -q "brew"); then
 	eval "$($BREW shellenv)"
 fi
