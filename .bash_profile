@@ -23,29 +23,42 @@ git-pull-push () {
 git-tag () {
 	git tag -a "$1" -m "$1 release" && git push origin $1
 }
+git_stat () {
+	output=""
+	mode="nocut"
+
+	if test -n $1; then
+		mode=$1
+	fi 
+
+	if $(git rev-parse --git-dir &> /dev/null); then
+		is_git_dir="true"
+		repo_name=$(basename $(git rev-parse --show-toplevel))
+		branch=$(git rev-parse --abbrev-ref HEAD)
+		changes=$(git status -s | wc -l | xargs)
+		output=" (${repo_name}:${branch}:${changes})"
+
+		if "$mode" = "cut" -a  $(echo $output | wc -m) -gt 15; then
+			output="$(echo $output | cut -c 2-14)...)"
+		fi
+
+	fi
+
+	echo "$output"
+}
+
 git_completion_file="${unix_profiles_dir}/git-completion.bash"
 if test -f "$git_completion_file"; then
 	source "$git_completion_file"
 fi
 
 # bash promt
-git_ps1 () {
-	git rev-parse --git-dir &> /dev/null
-	retval=$?
-	output=""
-	if test $retval -eq 0; then
-		repo_name=$(basename $(git rev-parse --show-toplevel))
-		branch=$(git rev-parse --abbrev-ref HEAD)
-		changes=$(git status -s | wc -l | xargs)
-		output=" (${repo_name}:${branch}:${changes})"
-	fi
-	echo "$output"
-}
 date_ps1 () {
 	echo "$(date +%T)"
 }
+
 # bash promt
-export PS1='\[\033[0;32m\]\u\[\033[1;37m\]@\[\033[0;32m\]\h$(git_ps1) \W\n$(date_ps1) \$\[\033[00m\] '
+export PS1='\[\033[0;32m\]\u\[\033[1;37m\]@\[\033[0;32m\]\h$(git_stat) \W\n$(date_ps1) \$\[\033[00m\] '
 
 # aliases
 unalias -a
@@ -101,24 +114,17 @@ resolv-dhcp () {
 
 # ssh logins and fit in tmux
 set_window_title () {
-	git rev-parse --git-dir &> /dev/null
-	retval=$?
-	if test $retval -eq 0; then
-		repo_name=$(basename $(git rev-parse --show-toplevel))
-		name_chars=`echo $repo_name|wc -m`
-		if test $name_chars -gt 15; then
-			suff="..."
-		else
-			suff=""
-		fi
-		prompt_t=`echo ${repo_name} | cut -c 1-15`
-		prompt=${prompt_t}${suff}
+
+	if $(git rev-parse --git-dir &> /dev/null); then
+		prompt=$(git_stat cut)
 	else
-		prompt=`hostname -s`
+		prompt=$(hostname -s)
 	fi
-	if test ! -z $1; then
-		prompt=`echo $1 | awk -F '.' '{print $1}'`
+
+	if test -n "$1"; then
+		prompt=$(echo $1 | awk -F '.' '{print $1}')
 	fi
+
 	echo -ne "\033k${prompt}\033\\"
 }
 
@@ -132,6 +138,7 @@ if test $(uname) = "Darwin" -a -f $BREW && $(echo $PATH | grep -v -q "brew") && 
 	eval "$($BREW shellenv)"
 fi
 
+# ssh aliases
 sshs () {
 	set_window_title $@
 	ssh $@
