@@ -38,7 +38,7 @@ git_stat () {
 		changes=$(git status -s | wc -l | xargs)
 		output=" (${repo_name}:${branch}:${changes})"
 
-		if "$mode" = "cut" -a  $(echo $output | wc -m) -gt 15; then
+		if test "$mode" = "cut" -a  $(echo $output | wc -m) -gt 15; then
 			output="$(echo $output | cut -c 2-14)...)"
 		fi
 
