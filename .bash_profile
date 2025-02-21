@@ -62,6 +62,7 @@ export PS1='\[\033[0;32m\]\u\[\033[1;37m\]@\[\033[0;32m\]\h$(git_stat) \W\n$(dat
 
 # aliases
 unalias -a
+
 ## common
 alias bim="vim"
 alias screen="screen -h 10000"
@@ -69,6 +70,8 @@ alias grep="grep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
 alias sshrc="${HOME}/.ssh/rc"
+alias vscode="open -a 'Visual Studio Code'"
+
 ## tmux
 alias tmux="tmux -2 -u"
 alias ssx="tmux attach -d -t"
