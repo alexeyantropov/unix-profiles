@@ -70,7 +70,6 @@ alias grep="grep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
 alias sshrc="${HOME}/.ssh/rc"
-alias vscode="open -a 'Visual Studio Code'"
 
 ## tmux
 alias tmux="tmux -2 -u"
@@ -102,6 +101,11 @@ ssh-auth-up () {
 	last_auth_socket=$(ls -t /tmp/ssh-*/agent.* | head -1)
 	auth_socket_link="$SSH_AUTH_SOCK"
 	ln -svf "$last_auth_socket" $auth_socket_link
+}
+vscode () {
+	set -x
+	test -z "$1" && open -a 'Visual Studio Code' . || open -a 'Visual Studio Code' $1
+	set +x
 }
 
 # include local config (for home, work, etc)
