@@ -23,7 +23,7 @@ git-pull-push () {
 git-tag () {
 	git tag -a "$1" -m "$1 release" && git push origin $1
 }
-git_stat () {
+git_stat_echo () {
 	output=""
 	mode="nocut"
 
@@ -46,6 +46,16 @@ git_stat () {
 
 	echo "$output"
 }
+git_stat_dummy() {
+	echo ""
+}
+git-ps-enable () {
+	alias git_stat=git_stat_echo
+}
+git-ps-disable () {
+	alias git_stat=git_stat_dummy
+}
+git-ps-enable
 
 git_completion_file="${unix_profiles_dir}/git-completion.bash"
 if test -f "$git_completion_file"; then
