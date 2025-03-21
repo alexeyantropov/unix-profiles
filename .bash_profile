@@ -55,7 +55,9 @@ git-ps-enable () {
 git-ps-disable () {
 	alias git_stat=git_stat_dummy
 }
-git-ps-enable
+git_stat () {
+	git_stat_echo
+}
 
 git_completion_file="${unix_profiles_dir}/git-completion.bash"
 if test -f "$git_completion_file"; then
